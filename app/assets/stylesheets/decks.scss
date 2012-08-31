@@ -1,0 +1,36 @@
+.card {
+	text-overflow:ellipsis-word;
+	min-height:15px;
+	height:15px;
+	overflow:hidden;
+	z-index:10;
+}
+
+.well {
+
+	h3 {
+		display:block;
+		#border-radius: 5px 5px 0 0;
+		border-radius:0;
+		background:#e1e1e1;
+		border-bottom:#ccc;
+
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+
+		position:relative;
+		margin:-20px -20px 15px -20px;
+		padding:5px 20px;
+
+		.btn-toolbar {
+			float:right;
+			display:inline;
+			margin:0;
+		}
+	}
+
+	&.group, &.ungrouped_cards, &.add_group {
+		margin-bottom:0;
+		border-radius:0;
+		padding-top:0;
+	}
+}

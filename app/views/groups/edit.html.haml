@@ -1,0 +1,53 @@
+- model_class = Group
+.page-header
+  %h1= t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
+      :default => "Edit #{model_class.model_name.human}")                                     
+= render :partial => 'form'
+
+%br
+
+.tabbable
+  / Only required for left/right tabs
+  %ul.nav.nav-tabs
+    %li.active
+      %a{"data-toggle" => "tab", :href => "#tab1"} Cards
+    %li
+      %a{"data-toggle" => "tab", :href => "#tab2"} Questions
+  .tab-content
+    #tab1.tab-pane.active
+      / %h3 Listing cards
+      %table.table
+        %tr
+          %th Count
+          %th Front
+          %th Back
+          %th Publish?
+          %th
+        - @group.cards.each_with_index do |card, i|
+          %tr
+            %td= i + 1
+            %td= best_in_place card, :front
+            %td= best_in_place card, :back, :type => 'textarea'
+            %td= best_in_place card, :publish, :type => :checkbox, :collection => ["No", "Yes!"]
+            %td= link_to 'Destroy', card, confirm: 'Are you sure?', method: :delete
+
+    #tab2.tab-pane
+      / %h3 Listing Questions
+      %table.table
+        %tr
+          %th Question
+          %th Answer
+          %th False Answer 1
+          %th False Answer 2
+          %th False Answer 3
+        - @group.cards.each do |card|
+          - next unless card.publish
+          %tr
+            %td= @group.question_format.gsub('#{front}', card.front).gsub('#{back}', card.back)
+            %td= @group.answer_format.gsub('#{front}', card.front).gsub('#{back}', card.back)
+            - i = 0
+            - @group.cards.shuffle.each do |other_card|
+              - next if other_card.id == card.id
+              - i += 1
+              %td= @group.answer_format.gsub('#{front}', other_card.front).gsub('#{back}', other_card.back)
+              - break if i == 3

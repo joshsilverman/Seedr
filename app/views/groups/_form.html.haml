@@ -1,0 +1,18 @@
+= form_for @group, :html => { :class => 'form-horizontal' } do |f|
+  .control-group
+    = f.label :name, :class => 'control-label'
+    .controls
+      = f.text_field :name, :class => 'text_field'
+  .control-group
+    = f.label :question_format, :class => 'control-label'
+    .controls
+      = f.text_field :question_format, :class => 'text_field'
+  .control-group
+    = f.label :answer_format, :class => 'control-label'
+    .controls
+      = f.text_field :answer_format, :class => 'text_field'
+  .form-actions
+    .btn-group  
+      = f.submit nil, :class => 'btn btn-primary'
+      = link_to t('.cancel', :default => t("helpers.links.cancel")),
+        groups_path, :class => 'btn'                                

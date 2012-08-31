@@ -1,0 +1,36 @@
+- model_class = Deck
+.page-header
+  %h1= t '.title', :default => model_class.model_name.human.pluralize
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:id)
+      %th Handle
+      %th= model_class.human_attribute_name(:quizlet_id)
+      %th= model_class.human_attribute_name(:title)
+      %th= model_class.human_attribute_name(:created_at)
+      %th= t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @decks.each do |deck|
+      %tr
+        %td= link_to deck.id, deck_path(deck)
+        %td= link_to deck.handle.name, handle_path(deck.handle)
+        %td= deck.quizlet_id
+        %td= deck.title
+        %td= l deck.created_at
+        %td
+          = link_to t('.edit', :default => t("helpers.links.edit")),
+            edit_deck_path(deck), :class => 'btn btn-mini'          
+          -#
+          = link_to t('.destroy', :default => t("helpers.links.destroy")),                                 
+            deck_path(deck),                                                                               
+            :method => :delete,                                                                            
+            :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+            :class => 'btn btn-mini btn-danger'
+
+%br
+= link_to 'New Card', new_card_path
+
+= link_to t('.new', :default => t("helpers.links.new")),
+  new_deck_path,                                        
+  :class => 'btn btn-primary'                           
