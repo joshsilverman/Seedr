@@ -1,0 +1,122 @@
+.tabbable
+  / Only required for left/right tabs
+  %ul.nav.nav-tabs
+    - if @handle
+      %li
+        %a{"data-toggle" => "tab", :href => "#tab1"} Decks
+
+    - if @handle or @deck
+      %li
+        %a{"data-toggle" => "tab", :href => "#tab2"} Groups
+
+    %li
+      %a{"data-toggle" => "tab", :href => "#tab3"} Cards
+
+    %li
+      %a{"data-toggle" => "tab", :href => "#tab4"} Questions
+
+  .tab-content
+    - if @handle
+      #tab1.tab-pane
+        %table.table
+          %tr
+            %th 
+            %th Title
+            %th Count
+            %th Quizlet id
+            %th
+          - @handle.decks.each_with_index do |deck, i|
+            %tr
+              %td= i + 1
+              %td= link_to deck.title, edit_deck_path(deck)
+              %td= deck.cards.count
+              %td= deck.quizlet_id
+              %td= link_to 'Destroy', deck, confirm: 'Are you sure?', method: :delete
+
+    - if @handle or @deck
+      #tab2.tab-pane
+        %table.table
+          %tr
+            %th 
+            %th Name
+            %th Count
+            %th Question format
+            %th Answer format
+            %th
+          - i = 0
+          - decks = (@handle) ? @handle.decks : [@deck]
+          - decks.each do |deck|
+            - deck.groups.each do |group|
+              %tr
+                %td= i += 1
+                %td= link_to group.name, edit_group_path(group)
+                %td= group.cards.count
+                %td= group.question_format
+                %td= group.answer_format
+                %td= link_to 'Destroy', group, confirm: 'Are you sure?', method: :delete
+
+    - cards = []
+    - @handle.decks.each {|d| d.groups.each {|g| cards += g.cards}} if @handle
+    - cards = @deck.cards if @deck
+    - cards = @group.cards if @group
+
+    #tab3.tab-pane
+      / %h3 Listing cards
+      %table.table
+        %tr
+          %th
+          %th Front
+          %th Back
+          %th Publish?
+          %th
+        - cards.each_with_index do |card, i|
+          %tr{:card_id => card.id, :group_id => (card.groups.first.id if card.groups.first)}
+            %td= i + 1
+            %td
+              %i.icon-edit
+              = best_in_place card, :front
+            %td
+              %i.icon-edit
+              = best_in_place card, :back, :type => 'textarea'
+            %td
+              %i.icon-edit
+              = best_in_place card, :publish, :type => :checkbox, :collection => ["No", "Yes!"]
+            %td
+              %a.ungroup_link Ungroup
+              = link_to 'Destroy', card, confirm: 'Are you sure?', method: :delete
+
+    #tab4.tab-pane
+      / %h3 Listing Questions
+      %table.table
+        %tr
+          %th
+          %th Question
+          %th Answer
+          %th False Answer 1
+          %th False Answer 2
+          %th False Answer 3
+
+        - k = 0
+        - cards.each do |card|
+          - group = card.groups.first
+          - next if group.nil? or group.question_format.nil? or group.answer_format.nil? or !card.publish
+          %tr
+            %td= k += 1
+            %td
+              -# question = group.question_format.gsub('#{front}', "<||>#{card.front}<||>").gsub('#{back}', "<||>#{card.back}<||>")
+              - question_parts = group.question_format.split /\#{|}/
+              - front = (question_parts[1] == "front") ? true : false
+              - question_parts.each_with_index do |part, i|
+                - if i == 1
+                  %i.icon-edit
+                  = best_in_place card, :front if front
+                  = best_in_place card, :back if !front
+                - else
+                  = part
+            %td= group.answer_format.gsub('#{front}', card.front).gsub('#{back}', card.back)
+            - i = 0
+            - group.cards.shuffle.each do |other_card|
+              - next if other_card.id == card.id
+              - i += 1
+              %td= group.answer_format.gsub('#{front}', other_card.front).gsub('#{back}', other_card.back)
+              - break if i == 3

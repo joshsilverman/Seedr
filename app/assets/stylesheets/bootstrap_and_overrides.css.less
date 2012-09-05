@@ -18,9 +18,14 @@ body {
   &:first-letter { text-transform: uppercase; }
 }
 
-.best_in_place textarea {
-	width:100%;
+.best_in_place textarea, .best_in_place input {
+	width:80%;
 	height:2em;
+	margin:0;
+}
+.best_in_place input {
+	height:16px;
+	padding:1px;
 }
 
 @import "twitter/bootstrap/responsive";

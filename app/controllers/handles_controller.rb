@@ -34,7 +34,7 @@ class HandlesController < ApplicationController
 
   # GET /handles/1/edit
   def edit
-    @handle = Handle.find(params[:id])
+    @handle = Handle.includes(:decks => {:groups => {:cards => :groups}}).find(params[:id])
   end
 
   # POST /handles
@@ -44,7 +44,7 @@ class HandlesController < ApplicationController
 
     respond_to do |format|
       if @handle.save
-        format.html { redirect_to @handle, notice: 'Handle was successfully created.' }
+        format.html { redirect_to edit_handle_path(@handle), notice: 'Handle was successfully created.' }
         format.json { render json: @handle, status: :created, location: @handle }
       else
         format.html { render action: "new" }

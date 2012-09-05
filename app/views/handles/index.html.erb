@@ -15,11 +15,9 @@
     <% @handles.each do |handle| %>
       <tr>
         <td><%= handle.id %></td>
-        <td><%= link_to handle.name, handle_path(handle) %></td>
+        <td><%= link_to handle.name, edit_handle_path(handle) %></td>
         <td><%=l handle.created_at %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_handle_path(handle), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       handle_path(handle),
                       :method => :delete,

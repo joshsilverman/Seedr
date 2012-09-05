@@ -14,14 +14,11 @@
     - @decks.each do |deck|
       %tr
         %td= link_to deck.id, deck_path(deck)
-        %td= link_to deck.handle.name, handle_path(deck.handle)
+        %td= link_to deck.handle.name, edit_handle_path(deck.handle)
         %td= deck.quizlet_id
-        %td= deck.title
+        %td= link_to deck.title, edit_deck_path(deck)
         %td= l deck.created_at
         %td
-          = link_to t('.edit', :default => t("helpers.links.edit")),
-            edit_deck_path(deck), :class => 'btn btn-mini'          
-          -#
           = link_to t('.destroy', :default => t("helpers.links.destroy")),                                 
             deck_path(deck),                                                                               
             :method => :delete,                                                                            

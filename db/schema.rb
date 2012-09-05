@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120831183837) do
+ActiveRecord::Schema.define(:version => 20120905192026) do
 
   create_table "cards", :force => true do |t|
     t.text     "front"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20120831183837) do
     t.text     "question_format"
     t.text     "answer_format"
     t.integer  "deck_id"
+    t.boolean  "default"
   end
 
   create_table "handles", :force => true do |t|
