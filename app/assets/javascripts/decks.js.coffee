@@ -14,7 +14,33 @@ $ ->
         dragged.css({position:''}).appendTo(cards)
 
         $.get '/cards/' + dragged.attr('card_id') + '/group/' + (if (group_id != '') then group_id else 0),
-          (response) -> group.attr('group_id', response)
+          (response) -> 
+            if (group.find('h3 .btn').length == 0)
+              group_id = response
+              group.attr('group_id', group_id)
+              h3 = group.find('h3')
+              window.name = name_span = h3.find("span span")
+              console.log name_span
+              btn_toolbar = $('#sample_group .btn-toolbar').clone()
+
+              rename = btn_toolbar.find('.rename')
+              name_span.attr
+                'id': "best_in_place_group_" + group_id + "_name"
+                'data-url': "/groups/" + group_id
+                #'data-activator': ".group[group_id=" + group_id + "] .rename"
+                'data-object': "group"
+                'data-attribute': "name"
+                'data-type': "input"
+
+              edit = btn_toolbar.find('.edit').attr 'href', '/groups/' + group_id + '/edit'
+              destroy = btn_toolbar.find('.destroy').attr 
+                'href': '/groups/' + group_id
+                'data-confirm': "Are you sure?"
+                'data-method': "delete"
+                'rel': "nofollow"
+
+              btn_toolbar.appendTo h3
+              $.best_in_place(name_span)
 
   window.make_droppable = (elmnt) ->
     elmnt.droppable
@@ -35,8 +61,8 @@ $ ->
 
   $('.best_in_place').best_in_place()
 
-  $(".group h3, .ungrouped_cards h3").click ->
-    cards = $(this).next('.cards')
+  $(".group h3 span, .ungrouped_cards h3 span").click ->
+    cards = $(this).parent('h3').next('.cards')
     if cards.hasClass "active"
       cards.slideUp "slow", ->
         $(this).closest('.group, .ungrouped_cards').animate height: 40

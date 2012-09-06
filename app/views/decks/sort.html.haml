@@ -25,22 +25,24 @@
   .span6.groups
     - @groups.each do |i, cards|
       - group = Group.find i
-      .well.group{:group_id => i, :style => "height:20px;"}
+      .well.group.old{:group_id => i, :style => "height:20px;"}
         %h3
           %span
             %i.icon-resize-vertical
-            =# best_in_place group, :name
-            = group.name
+            = best_in_place group, :name, :activator => ".group[group_id=#{i}] .rename"
+            =# group.name
 
           .btn-toolbar
             .btn-group
+              %a.btn.btn-small.rename Rename
               = link_to t('.edit', :default => t("helpers.links.edit")),
-                edit_group_path(i), :class => 'btn'                
+                edit_group_path(i), :class => 'btn btn-small'                
               = link_to t('.destroy', :default => t("helpers.links.destroy")),                                 
                 group_path(i),                                                                            
                 :method => 'delete',                                                                           
                 :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-                :class => 'btn btn-danger'
+                :class => 'btn btn-small btn-danger'
+
         .cards{:style => "display:none;"}
           - cards.each do |card|
             .card.well.small{:card_id => card.id}
@@ -51,31 +53,22 @@
               /= link_to 'Edit', edit_card_path(card)
               /= link_to 'Destroy', card, confirm: 'Are you sure?', method: :delete
 
-    .well.group{:group_id => '', :sytle => "height:20px;"}
+    .well.group.new{:group_id => '', :sytle => "height:20px;"}
       %h3
         %span
           %i.icon-resize-vertical
-          = "Unnamed group"
-
-        .btn-toolbar
-          .btn-group
-            = link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_group_path(@group), :class => 'btn'                
-            = link_to t('.destroy', :default => t("helpers.links.destroy")),                                 
-              group_path(@group),                                                                            
-              :method => 'delete',                                                                           
-              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-              :class => 'btn btn-danger'
+          %span New Group
       .cards{:style => "display:none;"}
 
     #sample_group{:style => 'display:none;'}
       .well.group{:group_id => ''}
         .btn-toolbar
           .btn-group
+            %a.btn.btn-small.rename Rename
             = link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_group_path(@group), :class => 'btn'                
+              '#', :class => 'edit btn btn-small'                
             = link_to t('.destroy', :default => t("helpers.links.destroy")),                                 
-              group_path(@group),                                                                            
+              "#",                                                                            
               :method => 'delete',                                                                           
               :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-              :class => 'btn btn-danger'
+              :class => 'btn btn-small btn-danger destroy'

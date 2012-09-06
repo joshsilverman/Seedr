@@ -65,7 +65,7 @@ class GroupsController < ApplicationController
     @group.destroy
 
     respond_to do |format|
-      format.html { redirect_to edit_deck_path(@group.deck) }
+      format.html { redirect_to :back }
       format.json { head :ok }
     end
 

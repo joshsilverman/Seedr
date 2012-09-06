@@ -17,6 +17,7 @@
 		border-radius:0;
 		background:#e1e1e1;
 		border-bottom:#ccc;
+		min-height:29px;
 
 		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 
@@ -41,4 +42,20 @@
 		border-radius:0;
 		padding-top:0;
 	}
+}
+
+.group h3 .best_in_place input {
+	width:95%;
+}
+
+.group h3 .best_in_place {
+	float: left;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 40%;
+}
+.group h3 i {
+	float: left;
+	margin-right:5px;
 }

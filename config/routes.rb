@@ -1,4 +1,6 @@
 Quizlet::Application.routes.draw do
+
+  match "handles/:id/export" => "handles#export"
   resources :handles
 
   match "decks/new/:handle_id" => "decks#new"

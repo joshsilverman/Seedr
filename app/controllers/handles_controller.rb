@@ -37,6 +37,36 @@ class HandlesController < ApplicationController
     @handle = Handle.includes(:decks => {:groups => {:cards => :groups}}).find(params[:id])
   end
 
+  def export
+    questions = []
+    @handle = Handle.find(params[:id])
+    cards = []
+    @handle.decks.each {|d| d.groups.each {|g| cards += g.cards}} if @handle
+    cards.each do |card|
+      group = card.groups.first
+      question = {}
+      next if group.nil? or group.question_format.nil? or group.answer_format.nil? or !card.publish
+      question_parts = group.question_format.split /\#{|}/
+      # front = (question_parts[1] == "front") ? true : false
+      question[:text] = group.question_format.gsub('#{front}', card.front).gsub('#{back}', card.back)
+      question[:answer] = group.answer_format.gsub('#{front}', card.front).gsub('#{back}', card.back)
+
+      question[:false_answers] = []
+      i = 0
+      group.cards.shuffle.each do |other_card|
+        next if other_card.id == card.id
+        i += 1
+        question[:false_answers] << group.answer_format.gsub('#{front}', other_card.front).gsub('#{back}', other_card.back)
+        break if i == 3
+      end
+      questions << question
+    end
+
+    respond_to do |format|
+      format.json { render json: questions }
+    end
+  end
+
   # POST /handles
   # POST /handles.json
   def create
