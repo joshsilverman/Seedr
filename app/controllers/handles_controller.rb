@@ -2,7 +2,7 @@ class HandlesController < ApplicationController
   # GET /handles
   # GET /handles.json
   def index
-    @handles = Handle.all
+    @handles = Handle.includes(:decks => :cards).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -46,6 +46,7 @@ class HandlesController < ApplicationController
       group = card.groups.first
       question = {}
       next if group.nil? or group.question_format.nil? or group.answer_format.nil? or !card.publish
+      question[:card_id] = card.id
       question_parts = group.question_format.split /\#{|}/
       # front = (question_parts[1] == "front") ? true : false
       question[:text] = group.question_format.gsub('#{front}', card.front).gsub('#{back}', card.back)

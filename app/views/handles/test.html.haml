@@ -1,0 +1,47 @@
+
+/%script{:src => "http://www.magic-dev.com/demo/jquery-1.6.2.min.js", :type => "text/javascript"}
+/%script{:src => "http://www.magic-dev.com/demo/jquery-ui-1.8.14.custom.min.js", :type => "text/javascript"}
+:css
+  .listdragable{ background:#FFFFCC; list-style-type: none; width:140px; margin: 0; padding: 5px; float: left; margin-right: 10px; }
+  .listdragable li { cursor:move; margin: 5px; padding: 5px; font:10 tahoma; width: 120px; }
+  .itemSort1{background:#E1E1FF;}
+  .itemSort2{background:#FFA8A8;}
+  .itemSort3{background:#c6c6c6;}
+
+%div
+  .list#list1
+    .drag_cont
+    %ul.listdragable
+      %li#Li1.itemSort1
+        %input{:type => "checkbox"}>/
+        Item 1
+      %li#Li2.itemSort1
+        %input{:type => "checkbox"}>/
+        Item 2
+      %li#Li3.itemSort1
+        %input{:type => "checkbox"}>/
+        Item 3
+  .list#list2
+    .drag_cont
+    %ul.listdragable
+      %li#Li4.itemSort2
+        %input{:type => "checkbox"}>/
+        Item 4
+      %li#Li5.itemSort2
+        %input{:type => "checkbox"}>/
+        Item 5
+      %li#Li6.itemSort2
+        %input{:type => "checkbox"}>/
+        Item 6
+  .list#list3
+    .drag_cont
+    %ul.listdragable
+      %li#Li7.itemSort3
+        %input{:type => "checkbox"}>/
+        Item 7
+      %li#Li8.itemSort3
+        %input{:type => "checkbox"}>/
+        Item 8
+      %li#Li9.itemSort3
+        %input{:type => "checkbox"}>/
+        Item 9

@@ -5,12 +5,14 @@
     = best_in_place @handle, :name
 
 .form-actions
-  = link_to "Add deck", "/decks/new/#{@handle.id}", :class => 'btn'
-  = link_to t('.destroy', :default => t("helpers.links.destroy")),                                 
-    handle_path(@handle),                                                                          
-    :method => 'delete',                                                                           
-    :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-    :class => 'btn btn-danger' 
+  .btn-group
+    = link_to "Export", "/handles/#{@handle.id}/export.json", :class => 'btn'
+    = link_to "Add deck", "/decks/new/#{@handle.id}", :class => 'btn'
+    = link_to t('.destroy', :default => t("helpers.links.destroy")),                                 
+      handle_path(@handle),                                                                          
+      :method => 'delete',                                                                           
+      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+      :class => 'btn btn-danger' 
 
 %br
 %br

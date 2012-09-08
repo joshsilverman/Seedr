@@ -29,9 +29,15 @@
             %tr
               %td= i + 1
               %td= link_to deck.title, edit_deck_path(deck)
-              %td= deck.cards.count
+              %td
+                = deck.cards.select{|c| c.publish == true}.count
+                \/
+                = deck.cards.count
               %td= deck.quizlet_id
-              %td= link_to 'Destroy', deck, confirm: 'Are you sure?', method: :delete
+              %td
+                = link_to 'Sort', "/decks/#{deck.id}/sort"
+                |
+                = link_to 'Destroy', deck, confirm: 'Are you sure?', method: :delete
 
     - if @handle or @deck
       #tab2.tab-pane
@@ -50,7 +56,10 @@
               %tr
                 %td= i += 1
                 %td= link_to group.name, edit_group_path(group)
-                %td= group.cards.count
+                %td
+                  = group.cards.select{|c| c.publish == true}.count
+                  \/
+                  = group.cards.count
                 %td= group.question_format
                 %td= group.answer_format
                 %td= link_to 'Destroy', group, confirm: 'Are you sure?', method: :delete
@@ -83,6 +92,7 @@
               = best_in_place card, :publish, :type => :checkbox, :collection => ["No", "Yes!"]
             %td
               %a.ungroup_link Ungroup
+              |
               = link_to 'Destroy', card, confirm: 'Are you sure?', method: :delete
 
     #tab4.tab-pane
@@ -106,13 +116,16 @@
               -# question = group.question_format.gsub('#{front}', "<||>#{card.front}<||>").gsub('#{back}', "<||>#{card.back}<||>")
               - question_parts = group.question_format.split /\#{|}/
               - front = (question_parts[1] == "front") ? true : false
+              - question = ""
               - question_parts.each_with_index do |part, i|
                 - if i == 1
-                  %i.icon-edit
-                  = best_in_place card, :front if front
-                  = best_in_place card, :back if !front
+                  -# %i.icon-edit
+                  - question += '<i class="icon-edit"></i>'
+                  - question += best_in_place(card, :front) if front
+                  - question += best_in_place(card, :back) if !front
                 - else
-                  = part
+                  - question += part
+              = question.html_safe
             %td= group.answer_format.gsub('#{front}', card.front).gsub('#{back}', card.back)
             - i = 0
             - group.cards.shuffle.each do |other_card|
