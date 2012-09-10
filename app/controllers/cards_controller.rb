@@ -38,20 +38,28 @@ class CardsController < ApplicationController
   end
 
   def group
-    @card = Card.find(params[:id])
+
+    @cards = Card.where(:id => params[:id].split(",")).all
     @group = Group.where(:id => params[:group_id]).first
-    @group = Group.create :deck_id => @card.deck_id if @group.nil?
-    CardsGroup.where(:card_id => params[:id]).delete_all
 
 
-    @card.groups << @group
+    @cards.each do |card|
+      @group = Group.create :deck_id => card.deck_id if @group.nil?
 
-    
+      CardsGroup.where(:card_id => card.id).delete_all
+      card.groups << @group
+    end
+
     render :text => @group.id
   end
 
   def ungroup
-    CardsGroup.where(:card_id => params[:id]).delete_all
+    @cards = Card.where(:id => params[:id].split(",")).all
+    
+    @cards.each do |card|
+      CardsGroup.where(:card_id => card.id).delete_all
+    end
+
     render :text => "did it"
   end
 

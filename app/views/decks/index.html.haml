@@ -12,6 +12,7 @@
       %th= t '.actions', :default => t("helpers.actions")
   %tbody
     - @decks.each do |deck|
+      - next unless deck.handle
       %tr
         %td= link_to deck.id, deck_path(deck)
         %td= link_to deck.handle.name, edit_handle_path(deck.handle)
