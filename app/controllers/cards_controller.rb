@@ -40,11 +40,17 @@ class CardsController < ApplicationController
   def group
 
     @cards = Card.where(:id => params[:id].split(",")).all
-    @group = Group.where(:id => params[:group_id]).first
 
+    puts params[:group_id]
+    puts @cards
+    puts @cards.count > 0
+    if params[:group_id] == 'undefined' and @cards.count > 0
+      @group = Group.create :deck_id => @cards.first.deck_id
+    else
+      @group = Group.where(:id => params[:group_id]).first
+    end
 
     @cards.each do |card|
-      @group = Group.create :deck_id => card.deck_id if @group.nil?
 
       CardsGroup.where(:card_id => card.id).delete_all
       card.groups << @group

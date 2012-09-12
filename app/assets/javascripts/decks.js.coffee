@@ -1,4 +1,13 @@
 c = (o) -> console.log o
+jQuery.fn.identify = ->
+  i = 0
+  @each ->
+    return if $(this).attr("id")
+    loop
+      i++
+      id = "guid_" + i
+      break unless $("#" + id).length > 0
+    $(this).attr "id", id
 
 $ ->
 
@@ -18,6 +27,9 @@ $ ->
       list.addClass "drag-in-progress"
       cards = list.find('ul')
 
+      sort.offset = $(window).scrollTop(150)
+      $(window).scrollTop(0)
+
     drag_cont
 
   draggable_stop = ->
@@ -25,6 +37,7 @@ $ ->
         $('.list').each (i, list) ->
           list = $(list)
           list.removeClass "drag-in-progress"
+          $(window).scrollTop(sort.offset)
 
         after_drop()
       1000
@@ -32,7 +45,7 @@ $ ->
   droppable_drop = (event, ui) ->
     if ui.helper.children().length > 0
       
-      list = $(this)
+      list = $(this).identify()
       ul = list.find('ul')
       cards = ui.helper.children('li').clone()
 
@@ -48,14 +61,37 @@ $ ->
       else
         $.get('/cards/' + card_ids + '/group/' + (if (group_id != '') then group_id else 0),
             (response) -> 
+              c response
+              c group.find('h3 .btn')
               if (group.find('h3 .btn').length == 0)
+                group = $("#" + group.attr('id'))
+
                 group_id = response
                 group.attr('group_id', group_id)
 
-                h3 = group.find('h3')
+                c group
+
+
+                h3 = group.find('h3').identify()
+
+                c 'h3'
+                c h3
+
                 name_span = h3.find("span span")
+
+                c 'name span'
+                c name_span
+
                 btn_toolbar = $('#sample_toolbar .btn-toolbar').clone()
+
+                c 'btn toolbar'
+                c btn_toolbar
+
                 rename = btn_toolbar.find('.rename')
+
+                c 'rename'
+                c rename
+
                 name_span.attr
                   'id': "best_in_place_group_" + group_id + "_name"
                   'data-url': "/groups/" + group_id
@@ -77,7 +113,7 @@ $ ->
 
                 new_group = $('#sample_list .list').clone()
                 group.after new_group
-          ).complete -> after_drop(group)
+          ).complete -> #after_drop(group)
 
   after_drop = (group) ->
     $('.list').each (i, l) -> 
