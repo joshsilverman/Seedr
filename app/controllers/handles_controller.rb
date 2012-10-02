@@ -2,7 +2,7 @@ class HandlesController < ApplicationController
   # GET /handles
   # GET /handles.json
   def index
-    @handles = Handle.includes(:decks => :cards).all
+    @handles = Handle.includes(:decks => {:cards => :scorecards}).all
 
     respond_to do |format|
       format.html # index.html.erb

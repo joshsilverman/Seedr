@@ -9,11 +9,18 @@
     .navbar.navbar-fixed-top
       .navbar-inner
         %a.brand{:href => "#"} Seeder
-        %ul.nav
-          %li.active
-            %a{:href => "/handles"} Handles
-          %li
-            %a{:href => "/decks"} Decks
+
+        - if user_signed_in?
+          %ul.nav
+            %li.active
+              %a{:href => "/handles"} Show Handles
+            %li
+              %a{:href => "/cards/audit"} Audit Quality
+
+          %ul.nav{:style => "float:right;"}
+            %li
+              = link_to 'Sign out', destroy_user_session_path, :method => :delete
+
     .container
 
 

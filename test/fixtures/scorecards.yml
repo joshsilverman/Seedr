@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  awk: false
+  length: false
+  level: false
+  error: false
+  inapp: false
+
+two:
+  awk: false
+  length: false
+  level: false
+  error: false
+  inapp: false
