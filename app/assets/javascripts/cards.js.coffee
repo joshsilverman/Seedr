@@ -18,9 +18,16 @@ class Audit
       data: scorecard.serialize()
       type: 'post'
       success: ->
-        question = new Question audit.questions.pop()
-        $('#new_scorecard input').attr 'value', 0
-        $('#new_scorecard input').attr 'checked', false
+        $('.audit').animate
+            opacity:0
+          , 
+          500,
+          ->
+            $('#new_scorecard input').attr 'value', 0
+            $('#new_scorecard input').attr 'checked', false
+            question = new Question audit.questions.pop()
+
+            $('.audit').animate {opacity:1}, 500
 
   on_skip: ->
     question = new Question @questions.pop()
@@ -45,9 +52,7 @@ class Question
     question_container.html conversation
 
     $("#scorecard_card_id").attr 'value', question.card_id
-
-    console.log $("#scorecard_card_id")
-    console.log question
+    $("#scorecard_handle_id").attr 'value', question.handle_id
 
 $ -> 
   window.audit = new Audit

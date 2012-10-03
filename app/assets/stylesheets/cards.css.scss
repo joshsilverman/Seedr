@@ -1,4 +1,6 @@
 .audit {
+  //position:absolute;
+  //left:0;
 
   .question-container {
 
@@ -22,7 +24,6 @@
       .post {
         padding: 10px;
         position: relative;
-        cursor: pointer;
 
         .content {
           margin-left: 58px;
@@ -66,7 +67,6 @@
           border-top-style: solid;
           border-top-width: 1px;
           color: #333;
-          cursor: pointer;
           display: block;
           font-family: Verdana, Arial, sans-serif;
           font-size: 14px;
@@ -116,7 +116,6 @@
             border-top-style: solid;
             border-top-width: 0px;
             color: #333;
-            cursor: pointer;
             display: block;
             font-family: Verdana, Arial, sans-serif;
             font-size: 14px;
@@ -155,6 +154,11 @@
   }
 
   .scorecard {
+    position:absolute;
+    width:530px;
+    top:400px;
+    padding: 19px 19px 10px 19px;
+
     label {
       float: left;
     }

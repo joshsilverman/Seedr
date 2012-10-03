@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121002150432) do
+ActiveRecord::Schema.define(:version => 20121002181333) do
 
   create_table "cards", :force => true do |t|
     t.text     "front"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20121002150432) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "card_id"
+    t.integer  "handle_id"
   end
 
   create_table "users", :force => true do |t|

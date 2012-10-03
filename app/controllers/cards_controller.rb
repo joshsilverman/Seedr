@@ -11,13 +11,13 @@ class CardsController < ApplicationController
   end
 
   def audit
-    @cards = Card.where(:publish => true).order("RANDOM()").limit 10
+    @cards = Card.includes([:scorecards, {:deck => :handle}]).where(:publish => true).order("RANDOM()").limit 50
     @questions = []
 
     @cards.each do |card|
       group = card.groups.first
       next if group.nil? or group.question_format.nil? or group.answer_format.nil? or !card.publish
-      question = {:card_id => card.id}
+      question = {:card_id => card.id, :handle_id => card.deck.handle.id}
 
       question_parts = group.question_format.split /\#{|}/
       front = (question_parts[1] == "front") ? true : false

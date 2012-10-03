@@ -62,7 +62,8 @@
             = f.check_box :level
             = f.label :level
           .hide{:style => "display:hidden;"}
-            #card_id_field= f.text_field :card_id
+            = f.text_field :card_id
+            = f.text_field :handle_id
 
 
 .question-data{:style => "display:none;"}= @questions.to_json
