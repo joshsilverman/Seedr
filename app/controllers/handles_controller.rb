@@ -1,6 +1,6 @@
 class HandlesController < ApplicationController
   # GET /handles
-  # GET /handles.json
+  # GET /handles.json 
   def index
     @handles = Handle.includes(:decks => :cards).all
 
