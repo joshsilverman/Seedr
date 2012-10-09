@@ -6,10 +6,10 @@
   .row
     .span2.offset7
       .well.stat
-        .grade= "#{sprintf("%.f", @handle.grade[:percentage] * 100) if @handle.grade[:percentage]}%"
+        .grade= "#{sprintf("%.f", @grade[:percentage] * 100) if @grade[:percentage]}%"
         .ci_wrapper
           (+/- 
-          %span.ci= sprintf("%.f", @handle.grade[:ci] * 100) if @handle.grade[:ci]
+          %span.ci= sprintf("%.f", @grade[:ci] * 100) if @grade[:ci]
           )
 
   .fadeable

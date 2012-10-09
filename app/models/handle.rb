@@ -3,8 +3,6 @@ class Handle < ActiveRecord::Base
   has_many :scorecards
 
   def grade
-    return @_grade if @_grade
-
     bad_scorecards = Scorecard.bad
     good_scorecards = Scorecard.good
 
@@ -25,7 +23,6 @@ class Handle < ActiveRecord::Base
     ci = nil
     ci = Math.sqrt((z**2*percentage*(1-percentage))/sample_size_finite) if sample_size > 0
 
-    @_grade = {:good => good, :bad => bad, :grade => grade, :percentage => percentage, :ci => ci, :sample_size => sample_size, :sample_size_finite => sample_size_finite, :population => population}
-    @_grade
+    {:good => good, :bad => bad, :grade => grade, :percentage => percentage, :ci => ci, :sample_size => sample_size, :sample_size_finite => sample_size_finite, :population => population}
   end
 end

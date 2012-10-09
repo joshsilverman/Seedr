@@ -4,7 +4,7 @@ class ScorecardsController < ApplicationController
 
     if params[:handle_id]
       @cards = Card.joins({:deck => :handle}).includes(:scorecards).where('handles.id = ? AND publish = true', params[:handle_id]).order("RANDOM()").limit 50
-      @handle = Handle.find params[:handle_id]
+      @grade = Handle.find(params[:handle_id]).grade
       # Handle.find(params[:handle_id]).includes(:decks => :cards).where(:publish => true).order("RANDOM()").limit 50
     elsif params[:group_id]
       # @cards = Card.includes([:scorecards, {:deck => :handle}]).where(:publish => true).order("RANDOM()").limit 50
