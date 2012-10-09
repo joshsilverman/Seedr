@@ -4,32 +4,9 @@ class HandlesController < ApplicationController
   def index
     @handles = Handle.includes(:decks => :cards).all
 
-    bad_scorecards = Scorecard.where("awk = ? or length = ? or level = ? or error = ? or inapp = ?", true, true, true, true, true).select([:id, :handle_id]).group('handle_id').count
-    good_scorecards = Scorecard.where("awk IS NULL AND length IS NULL AND level IS NULL AND error IS NULL AND inapp IS NULL").select([:id, :handle_id]).group('handle_id').count
-
     @grades = {}
-    @handles.each do |h|
-      good = good_scorecards[h.id].to_i.to_f
-      bad = bad_scorecards[h.id].to_i.to_f
-      all = good + bad
-      grade = nil
-      grade =  (good / all) if all > 0
-
-      population = h.decks.map{|d| d.cards.count}.sum
-      sample_size = all
-      sample_size_finite = sample_size.to_f / (1 + ((sample_size-1).to_f/population))
-      percentage = grade
-      percentage = 0.99 if grade == 1
-      percentage = 0.01 if grade == 0
-
-      z = 1.96
-      ci = nil
-      ci = Math.sqrt((z**2*percentage*(1-percentage))/sample_size_finite) if sample_size > 0
-
-      @grades[h.id] = {:good => good, :bad => bad, :grade => grade, :percentage => percentage, :ci => ci, :sample_size => sample_size, :sample_size_finite => sample_size_finite, :population => population}
-    end
+    @handles.each {|h| @grades[h.id] = h.grade}
     ap @grades
-
 
     respond_to do |format|
       format.html # index.html.erb

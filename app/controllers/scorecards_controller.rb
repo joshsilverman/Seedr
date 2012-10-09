@@ -3,7 +3,8 @@ class ScorecardsController < ApplicationController
   def audit
 
     if params[:handle_id]
-      @cards = Card.joins({:deck => :handle}).includes(:scorecards).where('handles.id = ? AND publish = true', params[:handle_id]).order("RANDOM()").limit 20
+      @cards = Card.joins({:deck => :handle}).includes(:scorecards).where('handles.id = ? AND publish = true', params[:handle_id]).order("RANDOM()").limit 50
+      @handle = Handle.find params[:handle_id]
       # Handle.find(params[:handle_id]).includes(:decks => :cards).where(:publish => true).order("RANDOM()").limit 50
     elsif params[:group_id]
       # @cards = Card.includes([:scorecards, {:deck => :handle}]).where(:publish => true).order("RANDOM()").limit 50
@@ -12,9 +13,9 @@ class ScorecardsController < ApplicationController
     else
       # @cards = Card.includes([:scorecards, {:deck => :handle}]).where(:publish => true).order("RANDOM()").limit 50
     end
-    # @cards = Card.includes([:scorecards, {:deck => :handle}]).where(:publish => true).order("RANDOM()").limit 50
 
     @questions = []
+
 
     @cards.each do |card|
       group = card.groups.first
@@ -58,8 +59,10 @@ class ScorecardsController < ApplicationController
     params[:scorecard][:user_id] = current_user.id
     @scorecard.update_attributes(params[:scorecard])
 
+    @handle = Handle.find params[:scorecard][:handle_id]
+
     if @scorecard.save
-      render json: @scorecard, status: :created, location: @scorecard
+      render json: @handle.grade, status: :created, location: @scorecard
     end
   end
 

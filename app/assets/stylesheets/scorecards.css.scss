@@ -6,7 +6,7 @@
 
     .conversation {
 
-      margin: 10px 0px;
+      margin: 25px 0px;
       -webkit-border-radius: 5px !important;
       -moz-border-radius: 5px !important;
       border-radius: 5px !important;
@@ -152,10 +152,30 @@
 
   }
 
+  .stat {
+    background-color:#888;
+    margin-top:-20px;
+    border-radius:0 0 5px 5px;
+    padding:8px 5px 8px 14px;
+
+    ///color:111;
+    font-size:20px;
+
+    .grade {
+      float:left;
+      border-right:dotted #555 1px;
+      padding-right:14px;
+      margin-right:14px;
+    }
+    .ci_wrapper {
+      float:left; 
+    }
+  }
+
   .scorecard {
     position:absolute;
     width:530px;
-    top:450px;
+    top:400px;
     padding: 19px 19px 10px 19px;
 
     label {

@@ -14,8 +14,8 @@ class Audit
       url: $('#new_scorecard').attr('action')
       data: scorecard.serialize()
       type: 'post'
-      success: ->
-        $('.audit').animate
+      success: (r) ->
+        $('.fadeable').animate
             opacity:0
           , 
           500,
@@ -24,7 +24,12 @@ class Audit
             $('#new_scorecard input[type=checkbox]').attr 'checked': false#, 'value', 1
             question = new Question audit.questions.pop()
 
-            $('.audit').animate {opacity:1}, 500
+            $('.stat').effect("highlight", {color: "white"}, 500)
+            $('.grade').text(Math.round(r.percentage*100) + '%')
+            $('.ci').text(Math.round r.ci*100)
+
+            $('.fadeable').animate {opacity:1}, 500, ->
+
 
   on_skip: ->
     question = new Question @questions.pop()
