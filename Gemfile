@@ -18,6 +18,8 @@ gem 'twitter-bootstrap-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
+gem 'awesome_print'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -28,7 +30,6 @@ end
 
 group :development do
   gem 'hirb'
-  gem 'awesome_print'
 end
 
 # To use ActiveModel has_secure_password
