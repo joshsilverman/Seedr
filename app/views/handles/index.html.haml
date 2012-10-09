@@ -19,13 +19,15 @@
           \/
           = handle.decks.map{|d| d.cards}.flatten.count
         %td
-          = sprintf "%.f", @grades[handle.id][:grade] * 100
-          = " (+/- #{sprintf "%.f", @grades[handle.id][:ci] * 100})"
+          = sprintf("%.f", @grades[handle.id][:percentage] * 100) if @grades[handle.id][:percentage]
+          = " (+/- #{sprintf "%.f", @grades[handle.id][:ci] * 100})" if @grades[handle.id][:ci]
         %td
-          = link_to "Export", "/handles/#{handle.id}/export.json", :class => 'btn btn-mini'
+          = link_to "Export", "/handles/#{handle.id}/export.json"
+          &nbsp;|&nbsp;
           = link_to t('.destroy', :default => t("helpers.links.destroy")),                                 
             handle_path(handle),                                                                           
             :method => :delete,                                                                            
-            :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-            :class => 'btn btn-mini btn-danger'                                                            
+            :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))
+          &nbsp;|&nbsp;
+          = link_to "Audit", "/handles/#{handle.id}/audit"
 = link_to t('.new', :default => t("helpers.links.new")), new_handle_path, :class => 'btn btn-primary'

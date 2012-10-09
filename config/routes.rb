@@ -2,6 +2,12 @@ Quizlet::Application.routes.draw do
 
   devise_for :users
 
+  match "cards/audit" => "scorecards#audit"
+  match "handles/:handle_id/audit" => "scorecards#audit"
+  match "groups/:group_id/audit" => "scorecards#audit"
+  match "decks/:deck_id/audit" => "scorecards#audit"
+  resources :scorecards
+  
   resources :users
 
   match "handles/:id/export" => "handles#export"
@@ -13,12 +19,10 @@ Quizlet::Application.routes.draw do
 
   resources :groups
 
-  match "cards/audit" => "cards#audit"
   match "cards/:id/group/:group_id" => "cards#group"
   match "cards/:id/ungroup" => "cards#ungroup"
   resources :cards
 
-  resources :scorecards
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

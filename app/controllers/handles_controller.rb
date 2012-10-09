@@ -12,18 +12,21 @@ class HandlesController < ApplicationController
       good = good_scorecards[h.id].to_i.to_f
       bad = bad_scorecards[h.id].to_i.to_f
       all = good + bad
-      grade = 0
+      grade = nil
       grade =  (good / all) if all > 0
 
       population = h.decks.map{|d| d.cards.count}.sum
       sample_size = all
       sample_size_finite = sample_size.to_f / (1 + ((sample_size-1).to_f/population))
       percentage = grade
+      percentage = 0.99 if grade == 1
+      percentage = 0.01 if grade == 0
+
       z = 1.96
-      ci = 0
+      ci = nil
       ci = Math.sqrt((z**2*percentage*(1-percentage))/sample_size_finite) if sample_size > 0
 
-      @grades[h.id] = {:grade => grade, :ci => ci}
+      @grades[h.id] = {:good => good, :bad => bad, :grade => grade, :percentage => percentage, :ci => ci, :sample_size => sample_size, :sample_size_finite => sample_size_finite, :population => population}
     end
     ap @grades
 

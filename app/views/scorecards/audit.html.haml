@@ -1,0 +1,69 @@
+:css
+  body {background:url(http://wisr.com/assets/bg_images/bg-quizmechem.jpg); background-size: cover;}
+
+.audit
+
+  %br
+  %br
+  %br
+
+  .row
+    .span6.offset3.question-container
+      / .post.parent{:post_id => "800"}
+      /   %i.icon-share-alt{:style => "display: none;"}
+      /   .content
+      /     %img.rounded{:alt => "4s3rcky8vlxeqr9lwo8c_normal", :src => "http://a0.twimg.com/profile_images/2604159789/4s3rcky8vlxeqr9lwo8c_normal.jpeg"}
+      /       %h5 QuizMeNow
+      /       %p After a combustion reaction occurs, 2 oxygens bind with carbon, giving each oxygen an oxidation number of _____ and the carbon has an oxidation number of _____.  The resulting CO2 molecule has a charge of _____.
+      /   .answers.rounded.border.ui-accordion.ui-widget.ui-helper-reset{:role => "tablist", :style => ""}
+      /     %h3.bottom_border.ui-accordion-header.ui-helper-reset.ui-state-default.ui-corner-all{:answer_id => "3425", "aria-expanded" => "false", "aria-selected" => "false", :correct => "false", :role => "tab", :tabindex => "0"} -2; +4; +2
+
+  #conversation_template{:style => "display:none;"}
+    .conversation
+      .post.parent
+        .content
+          %img.rounded{:src => "http://a0.twimg.com/profile_images/2604159789/4s3rcky8vlxeqr9lwo8c_normal.jpeg"}
+            %h5 QuizMeNow
+            %p.question
+        .answers.rounded.border.ui-accordion.ui-widget.ui-helper-reset
+
+  #answer_template{:style => "display:none;"}
+    %h3.bottom_border
+
+  %br
+  .row
+    .span6.offset3
+      .well.scorecard
+  
+        .btn-group{:style => "float:right; position:relative; top:-5px;"}
+          %button.btn#next
+            Next&nbsp;
+            %i.icon-chevron-right
+          %button.btn#skip
+            Skip
+            %i.icon-share-alt
+
+
+        - scorecard = Scorecard.new
+        = form_for(scorecard) do |f|
+          .field
+            = f.check_box :awk
+            = f.label :awk
+          .field
+            = f.check_box :length
+            = f.label :length
+          .field
+            = f.check_box :error
+            = f.label :error
+          .field
+            = f.check_box :inapp
+            = f.label :inapp
+          .field
+            = f.check_box :level
+            = f.label :level
+          .hide{:style => "display:hidden;"}
+            = f.text_field :card_id
+            = f.text_field :handle_id
+
+
+.question-data{:style => "display:none;"}= @questions.to_json

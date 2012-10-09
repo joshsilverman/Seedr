@@ -1,3 +1,176 @@
-// Place all the styles related to the Scorecards controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.audit {
+  //position:absolute;
+  //left:0;
+
+  .question-container {
+
+    .conversation {
+
+      margin: 10px 0px;
+      -webkit-border-radius: 5px !important;
+      -moz-border-radius: 5px !important;
+      border-radius: 5px !important;
+      border-top-style: solid;
+      border-top-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+      background: white;
+      border-right-style: solid;
+      border-right-width: 1px;
+      border-left-style: solid;
+      border-left-width: 1px;
+      border-color: rgba(0, 0, 0, 0.21);
+
+      .post {
+        padding: 10px;
+        position: relative;
+
+        .content {
+          margin-left: 58px;
+          min-height: 49px;
+
+          img {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            height: 48px;
+            border-radius: 5px;
+          }
+
+          h5 {
+            font-size: 12px;
+            line-height: 18px;
+          }
+
+          p {
+            margin: 0px;
+          }
+        }
+
+        .answers {
+          -webkit-border-image: none;
+          background-color: transparent;
+          border-bottom-color: #DDD;
+          border-bottom-left-radius: 5px;
+          border-bottom-right-radius: 5px;
+          border-bottom-style: solid;
+          border-bottom-width: 1px;
+          border-left-color: #DDD;
+          border-left-style: solid;
+          border-left-width: 1px;
+          border-right-color: #DDD;
+          border-right-style: solid;
+          border-right-width: 1px;
+          border-top-color: #DDD;
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+          border-top-style: solid;
+          border-top-width: 1px;
+          color: #333;
+          display: block;
+          font-family: Verdana, Arial, sans-serif;
+          font-size: 14px;
+          line-height: 18px;
+          list-style-image: none;
+          list-style-position: outside;
+          list-style-type: none;
+          margin-bottom: 0px;
+          margin-left: 0px;
+          margin-right: 0px;
+          margin-top: 10px;
+          outline-color: #333;
+          outline-style: none;
+          outline-width: 0px;
+          padding-bottom: 0px;
+          padding-left: 0px;
+          padding-right: 0px;
+          padding-top: 0px;
+          position: static;
+          text-decoration: none;
+
+          h3 {
+            -webkit-background-clip: border-box;
+            -webkit-background-origin: padding-box;
+            -webkit-background-size: auto;
+            -webkit-border-image: none;
+            background-attachment: scroll;
+            background-clip: border-box;
+            background-color: #FDFDFD;
+            background-image: none;
+            background-origin: padding-box;
+            background-size: auto;
+            border-bottom-color: #DDD;
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+            border-bottom-style: dotted;
+            border-bottom-width: 1px;
+            border-left-color: #DDD;
+            border-left-style: solid;
+            border-left-width: 0px;
+            border-right-color: #DDD;
+            border-right-style: solid;
+            border-right-width: 0px;
+            border-top-color: #DDD;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-top-style: solid;
+            border-top-width: 0px;
+            color: #333;
+            display: block;
+            font-family: Verdana, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 18px;
+            list-style-image: none;
+            list-style-position: outside;
+            list-style-type: none;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+            outline-color: #333;
+            outline-style: none;
+            outline-width: 0px;
+            padding-bottom: 10px;
+            padding-left: 14px;
+            padding-right: 10px;
+            padding-top: 10px;
+            position: relative;
+            text-decoration: none;
+            text-rendering: optimizelegibility;
+            z-index: 1;
+            zoom: 1;
+          }
+
+          h3:last-child {
+            border-bottom-width: 0px;
+            border-radius: 0 0 5px 5px;
+          }
+        }
+      }
+    }
+
+  }
+
+  .scorecard {
+    position:absolute;
+    width:530px;
+    top:450px;
+    padding: 19px 19px 10px 19px;
+
+    label {
+      float: left;
+    }
+
+    .field {
+      float:left;
+      width: 78px;
+
+      input {
+        margin-right:8px; 
+        float:left;
+      }
+    }
+  }
+}
+
