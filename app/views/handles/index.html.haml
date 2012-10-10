@@ -10,14 +10,25 @@
       %th Grade
       %th= t '.actions', :default => t("helpers.actions")
   %tbody
+    - question_count = {:published => 0, :total => 0}
+    - percentages = []
+    - cis = []
+
     - @handles.each_with_index do |handle, i|
+      - published_count = handle.decks.map{|d| d.cards}.flatten.select{|c| c.publish == true}.count
+      - total = handle.decks.map{|d| d.cards}.flatten.count
+      - question_count[:published] += published_count
+      - question_count[:total] += total
+      - percentages << @grades[handle.id][:percentage] if @grades[handle.id][:percentage]
+      - cis << @grades[handle.id][:ci] if @grades[handle.id][:ci]
+      
       %tr
         %td= i + 1
         %td= link_to handle.name, edit_handle_path(handle)
         %td
-          = handle.decks.map{|d| d.cards}.flatten.select{|c| c.publish == true}.count
+          = published_count
           \/
-          = handle.decks.map{|d| d.cards}.flatten.count
+          = total
         %td
           = sprintf("%.f", @grades[handle.id][:percentage] * 100) if @grades[handle.id][:percentage]
           = " (+/- #{sprintf "%.f", @grades[handle.id][:ci] * 100})" if @grades[handle.id][:ci]
@@ -30,4 +41,13 @@
             :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))
           &nbsp;|&nbsp;
           = link_to "Audit", "/handles/#{handle.id}/audit"
+    %tr.well
+      %td
+      %td 
+        %strong= "#{@handles.count} handles"
+      %td
+        %strong= "#{question_count[:published]}/#{question_count[:total]}"
+      %td
+        %strong= "#{sprintf("%.f", percentages.sum/percentages.count * 100)}% (+/- #{sprintf("%.f", cis.sum/cis.count * 100)})"
+      %td
 = link_to t('.new', :default => t("helpers.links.new")), new_handle_path, :class => 'btn btn-primary'
