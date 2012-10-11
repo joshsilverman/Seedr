@@ -1,4 +1,6 @@
 class CardsController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /cards
   # GET /cards.json
   def index

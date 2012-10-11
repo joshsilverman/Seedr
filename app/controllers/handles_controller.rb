@@ -1,4 +1,6 @@
 class HandlesController < ApplicationController
+  before_filter :authenticate_user!, :except => [:export]
+
   # GET /handles
   # GET /handles.json 
   def index
