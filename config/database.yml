@@ -12,3 +12,13 @@ development:
   password: password
   host: localhost
   timeout: 5000
+
+# development:
+#   adapter: postgresql
+#   encoding: unicode
+#   database: seeder
+#   pool: 5
+#   username: wisr
+#   password: password
+#   host: localhost
+#   timeout: 5000  
