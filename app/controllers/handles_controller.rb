@@ -58,8 +58,8 @@ class HandlesController < ApplicationController
       question[:card_id] = card.id
       question_parts = group.question_format.split /\#{|}/
       # front = (question_parts[1] == "front") ? true : false
-      question[:text] = group.question_format.gsub('#{front}', card.front).gsub('#{back}', card.back)
-      question[:answer] = group.answer_format.gsub('#{front}', card.front).gsub('#{back}', card.back)
+      question[:text] = card.question_formatted
+      question[:answer] = card.answer_formatted
 
       question[:false_answers] = []
       i = 0
@@ -71,7 +71,7 @@ class HandlesController < ApplicationController
           next if other_card.front == card.front        
         end
         i += 1
-        question[:false_answers] << group.answer_format.gsub('#{front}', other_card.front).gsub('#{back}', other_card.back)
+        question[:false_answers] << other_card.answer_formatted
         break if i == 3
       end
       questions << question
