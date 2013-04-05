@@ -109,27 +109,15 @@
         - k = 0
         - cards.each do |card|
           - group = card.groups.first
+          - other_cards = group.cards.where(publish: true)
           - next if group.nil? or group.question_format.nil? or group.answer_format.nil? or !card.publish
           %tr
             %td= k += 1
-            %td
-              -# question = group.question_format.gsub('#{front}', "<||>#{card.front}<||>").gsub('#{back}', "<||>#{card.back}<||>")
-              - question_parts = group.question_format.split /\#{|}/
-              - front = (question_parts[1] == "front") ? true : false
-              - question = ""
-              - question_parts.each_with_index do |part, i|
-                - if i == 1
-                  -# %i.icon-edit
-                  - question += '<i class="icon-edit"></i>'
-                  - question += best_in_place(card, :front) if front
-                  - question += best_in_place(card, :back) if !front
-                - else
-                  - question += part
-              = question.html_safe
-            %td= group.answer_format.gsub('#{front}', card.front).gsub('#{back}', card.back)
+            %td= card.question_formatted
+            %td= card.answer_formatted
             - i = 0
-            - group.cards.shuffle.each do |other_card|
+            - other_cards.shuffle.each do |other_card|
               - next if other_card.id == card.id
               - i += 1
-              %td= group.answer_format.gsub('#{front}', other_card.front).gsub('#{back}', other_card.back)
+              %td= other_card.answer_formatted
               - break if i == 3

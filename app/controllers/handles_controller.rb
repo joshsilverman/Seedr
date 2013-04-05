@@ -4,7 +4,7 @@ class HandlesController < ApplicationController
   # GET /handles
   # GET /handles.json 
   def index
-    @handles = Handle.includes(:decks => :cards).all
+    @handles = Handle.includes(:decks => {:cards => :scorecards}).order('created_at ASC').all
 
     @grades = {}
     @handles.each {|h| @grades[h.id] = h.grade}
@@ -40,7 +40,10 @@ class HandlesController < ApplicationController
 
   # GET /handles/1/edit
   def edit
-    @handle = Handle.includes(:decks => {:groups => {:cards => :groups}}).find(params[:id])
+    @handle = Handle.includes(:decks => {:groups => {:cards => [:scorecards, :groups]}}).find(params[:id])
+
+    # @deck_grades = {}
+    # @handle.decks.each {|d| @deck_grades[d.id] = d.grade}
   end
 
   def export

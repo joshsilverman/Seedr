@@ -3,11 +3,11 @@ class Handle < ActiveRecord::Base
   has_many :scorecards
 
   def grade
-    bad_scorecards = Scorecard.bad
-    good_scorecards = Scorecard.good
+    bad_scorecards = Scorecard.bad :handle_id => self.id
+    good_scorecards = Scorecard.good :handle_id => self.id
 
-    good = good_scorecards[self.id].to_i.to_f
-    bad = bad_scorecards[self.id].to_i.to_f
+    good = good_scorecards.to_i.to_f
+    bad = bad_scorecards.to_i.to_f
     all = good + bad
     grade = nil
     grade =  (good / all) if all > 0
