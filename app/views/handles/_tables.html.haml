@@ -118,6 +118,10 @@
             - i = 0
             - other_cards.shuffle.each do |other_card|
               - next if other_card.id == card.id
+              - if group.answer_format.include? "back"
+                - next if other_card.back == card.back
+              - else
+                - next if other_card.front == card.front
               - i += 1
               %td= other_card.answer_formatted
               - break if i == 3
