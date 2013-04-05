@@ -60,8 +60,12 @@
                   = group.cards.select{|c| c.publish == true}.count
                   \/
                   = group.cards.count
-                %td= group.question_format
-                %td= group.answer_format
+                %td 
+                  %i.icon-edit
+                  = best_in_place group, :question_format
+                %td                  
+                  %i.icon-edit
+                  = best_in_place group, :answer_format
                 %td= link_to 'Destroy', group, confirm: 'Are you sure?', method: :delete
 
     - cards = []
