@@ -113,6 +113,7 @@
         - k = 0
         - cards.each do |card|
           - group = card.groups.first
+          - next unless group
           - other_cards = group.cards.where(publish: true)
           - next if group.nil? or group.question_format.nil? or group.answer_format.nil? or !card.publish
           %tr
