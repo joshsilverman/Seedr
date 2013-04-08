@@ -51,6 +51,7 @@ class Decks
 
       ul.append cards
       sort.oldselected.remove()
+      cards.removeClass('ui-selected').removeClass('drag-in-progress')
 
       group = list
       group_id = group.attr "group_id"

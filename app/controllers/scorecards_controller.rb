@@ -22,7 +22,9 @@ class ScorecardsController < ApplicationController
 
     @cards.each do |card|
       group = card.groups.first
-      # next if group.nil? or group.question_format.nil? or group.answer_format.nil? or !card.publish
+      next if group.nil? or group.question_format.nil? or group.answer_format.nil? #or !card.publish
+      next if group.question_format.empty? or group.answer_format.empty?
+
       next if card.scorecards.length > 0
       question = {
         card_id: card.id, 
