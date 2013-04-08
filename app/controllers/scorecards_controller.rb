@@ -6,7 +6,6 @@ class ScorecardsController < ApplicationController
     if params[:handle_id]
       @cards = Card.joins({:deck => :handle}).includes(:scorecards).where('handles.id = ?', params[:handle_id]).order("RANDOM()").limit 50
       @cards = @cards.reject{|c| c.groups.first.nil? or c.groups.first.answer_format.nil? or c.groups.first.question_format.nil?}
-      puts @cards.to_yaml
 
       @grade = Handle.find(params[:handle_id]).grade
       # Handle.find(params[:handle_id]).includes(:decks => :cards).where(:publish => true).order("RANDOM()").limit 50
