@@ -4,7 +4,10 @@ class ScorecardsController < ApplicationController
   def audit
 
     if params[:handle_id]
-      @cards = Card.joins({:deck => :handle}).includes(:scorecards).where('handles.id = ? AND publish = true', params[:handle_id]).order("RANDOM()").limit 50
+      @cards = Card.joins({:deck => :handle}).includes(:scorecards).where('handles.id = ?', params[:handle_id]).order("RANDOM()").limit 50
+      @cards = @cards.reject{|c| c.groups.first.nil? or c.groups.first.answer_format.nil? or c.groups.first.question_format.nil?}
+      puts @cards.to_yaml
+
       @grade = Handle.find(params[:handle_id]).grade
       # Handle.find(params[:handle_id]).includes(:decks => :cards).where(:publish => true).order("RANDOM()").limit 50
     elsif params[:group_id]
@@ -20,7 +23,7 @@ class ScorecardsController < ApplicationController
 
     @cards.each do |card|
       group = card.groups.first
-      next if group.nil? or group.question_format.nil? or group.answer_format.nil? or !card.publish
+      # next if group.nil? or group.question_format.nil? or group.answer_format.nil? or !card.publish
       next if card.scorecards.length > 0
       question = {
         card_id: card.id, 

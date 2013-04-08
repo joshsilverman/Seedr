@@ -1,5 +1,5 @@
 :css
-  body {background:url(http://wisr.com/assets/bg_images/bg-quizmechem.jpg); background-size: cover;}
+  / body {background:url(http://wisr.com/assets/bg_images/bg-quizmechem.jpg); background-size: cover;}
 
 .audit
 
@@ -11,6 +11,8 @@
           (+/- 
           %span.ci= sprintf("%.f", @grade[:ci] * 100) if @grade[:ci]
           )
+
+  = render "handles/progress", active: 2
 
   .fadeable
 

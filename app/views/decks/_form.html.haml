@@ -14,7 +14,7 @@
       = f.number_field :quizlet_id, :class => 'number_field'
   .form-actions
     %span.btn-group
-      = f.submit nil, :class => 'btn btn-primary'
+      = link_to "Sort cards", "/decks/#{@deck.id}/sort", :class => 'btn'
+      = f.submit nil, :class => 'btn'
       = link_to t('.cancel', :default => t("helpers.links.cancel")),
         decks_path, :class => 'btn'
-    = link_to "Sort cards", "/decks/#{@deck.id}/sort", :class => 'btn'

@@ -8,14 +8,14 @@
   %body
     .navbar.navbar-fixed-top
       .navbar-inner
-        %a.brand{:href => "#"} Seeder
+        %a.brand{:href => "/handles"} Seeder
 
         - if user_signed_in?
-          %ul.nav
-            %li.active
-              %a{:href => "/handles"} Show Handles
-            / %li
-            /   %a{:href => "/cards/audit"} Audit Quality
+          / %ul.nav
+          /   %li.active
+          /     %a{:href => "/handles"} Show Handles
+          /   %li
+          /     %a{:href => "/cards/audit"} Audit Quality
 
           %ul.nav{:style => "float:right;"}
             %li

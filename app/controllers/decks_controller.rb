@@ -19,6 +19,7 @@ class DecksController < ApplicationController
     
     @cards = []
     @groups = {}
+    @handle = @deck.handle
     @deck.cards.each do |card|
       if card.groups.count == 0
         @cards.push card

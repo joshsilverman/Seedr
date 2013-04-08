@@ -1,0 +1,90 @@
+.title-container {
+	/*position: absolute;*/
+	text-align: center;
+	h1 {
+		/*float:right;*/
+	}
+}
+
+.visuallyhidden {
+    display: none;
+}
+
+.progress-container {
+	/*height: 150px;*/
+	margin-bottom: 50px;
+	margin-left: 50%;
+	text-align: center;
+	/*position: absolute;*/
+}
+
+.wizard-progress {
+    list-style: none;
+    list-style-image: none;
+    margin: 0;
+    padding: 0;
+    /*margin-left: -270px;*/
+    margin-left: -200px;
+    margin-top: 20px;
+    /*float: left;*/
+    white-space: nowrap;
+}
+
+.wizard-progress li {
+    float: left;
+    margin-right: 50px;
+    text-align: center;
+    position: relative;
+    width: 100px;
+}
+
+.wizard-progress .step-name {
+    display: table-cell;
+    height: 32px;
+    vertical-align: bottom;
+    text-align: center;
+    width: 100px;
+}
+
+.wizard-progress .step-name-wrapper {
+    display: table-cell;
+    height: 100%;
+    vertical-align: bottom;
+}
+
+.wizard-progress .step-num {
+    font-size: 14px;
+    font-weight: bold;
+    border: 3px solid yellowgreen;
+    border-radius: 50%;
+    width: 18px;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.wizard-progress .step-num:after {
+    content: "";
+    display: block;
+    background: yellowgreen;
+    height: 5px;
+    width: 130px;
+    position: absolute;
+    bottom: 10px;
+    left: 60px;
+}
+
+.wizard-progress li:last-of-type .step-num:after {
+    display: none;
+}
+
+.wizard-progress .active-step .step-num {
+    background-color: yellowgreen;
+}
+
+.handles-new {
+	.form-well {
+		width:510px;
+		padding:50px 0 0;
+		margin-top: 50px;
+	}
+}

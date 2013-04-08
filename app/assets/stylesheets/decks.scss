@@ -1,62 +1,91 @@
 .card {
 	text-overflow:ellipsis;
 	min-height:15px;
-	height:15px;
+	/*height:15px;*/
 	overflow:hidden;
 	z-index:10;
 
 	i:hover { 
 	  cursor:move;
 	}
+
+	.preview {
+		display: none;
+	}
 }
 
 
 .list, .drag_cont {
 
+	float:right;
+	clear:both;
+	height:38px;
+	margin: 10px;
+	overflow: hidden;
 	padding:0;
-	//min-height:40px;
+	/*
+	background: none;
+	margin: 5px;*/
+	/*box-shadow: 0 !important;*/
+	/*border: none;*/
+
+	&.active {
+		border:none;
+		float:none;
+		position: absolute;
+		height:inherit;
+		.btn-toolbar {
+			display:inline;
+		}		
+
+		h3 {
+			height:100px;
+			padding-top: 15px;
+			background: #f3f3f3;
+			border-radius: 0;
+			cursor: inherit;
+		}
+	}
+
+	background: white;
 
 	ul {
-		list-style-type: none; margin: 0 5px 5px; padding: 5px;
+		list-style-type: none; margin: 0px; padding-top: 15px;
+		/*background: white;*/
 	}
 
 	li {
-		list-style-type: none; margin: 0 5px 5px; padding: 5px;
+		list-style-type: none; 
+		margin: 0px; 
+		padding: 8px;
+		line-height: 20px;
+		width:100%;
+		/*height: 100px;*/
+
+		.text {
+			height:1.6em;
+			overflow: hidden;
+		}
+		.preview {
+			padding-left: 20px;
+			color:#888;
+			/*display: none;*/
+		}
+
 		i { cursor:move; }
 
-		margin-top: 5px; padding: 5px;
-		background:#E1E1FF;
-	}
-
-	&.drag-in-progress {
-		height:28px;
-		margin-bottom:50px;
-
-		h3 {
-			height: 28px;
-		}
-
-		ul {
-
-			> li {
-				visibility:hidden;
-			}
-		}
-
-		.btn-toolbar {
-			display:none;
-		}
-
-		i {display:none;}
+		border-top:1px solid lightgrey;
 	}
 
 	h3 {
 		display:block;
-		#border-radius: 5px 5px 0 0;
-		border-radius:0;
+		/*#border-radius: 5px 5px 0 0;*/
+		border-radius:3px;
 		background:#e1e1e1;
 		border-bottom:#ccc;
-		min-height:29px;
+		height:26px;
+		cursor: pointer;
+		box-shadow: 0;
 
 		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 
@@ -67,8 +96,37 @@
 
 		.btn-toolbar {
 			float:right;
-			display:inline;
+			display:none;
 			margin:0;
+			/*margin-right:-15px;*/
+		}
+
+		span.count {
+			font-weight: normal;
+			font-size: 13px;
+			float: right;
+			margin-right: 15px;
+			color: #999;
+			font-style: italic;
+		}
+
+		.formats {
+			margin-top: 35px;
+			bg-color: red;
+
+			.bip_wrapper {
+				width:450px;
+				float: left;
+				clear:both;
+				margin:2px 0;
+				padding:0;
+				font-weight: normal;
+				font-size: 13px;
+
+				.best_in_place {
+					width: 400px;
+				}
+			}
 		}
 	}
 
@@ -81,9 +139,23 @@
 		border-radius:0;
 		padding-top:0;
 	}
+
+	&.btn-wrapper {
+		text-align: center;
+		margin: 50px 0;
+	}
 }
 
-.list h3 i:hover { cursor:s-resize; }
+.drag_cont {
+	height: inherit;
+	background: none;
+
+	/*.preview {
+		display: none;
+	}*/
+}
+
+.list h3 i:hover { cursor:w-resize; }
 .list.active h3 i:hover { cursor:n-resize; }
 
 .list h3 .best_in_place input {
@@ -97,7 +169,7 @@
 	text-overflow: ellipsis;
 	width: 40%;
 }
-.list h3 i {
+.list h3 .bip_wrapper i {
 	float: left;
 	margin-right:5px;
 }

@@ -1,138 +1,95 @@
+= render "handles/progress", active: 1
+
 - model_class = Deck
-%ul.breadcrumb
-  %li
-    = link_to @deck.handle.name, edit_handle_path(@deck.handle)
-    %span.divider /
-  %li
-    = link_to @deck.title, edit_deck_path(@deck)
-
-%br
-
-/ :css
-/   .listdragable { list-style-type: none; margin: 0 5px 5px; padding: 5px; }
-/   .listdragable li { margin-top: 5px; padding: 5px; }
-/   .listdragable li i { cursor:move; }
-/   .list li {background:#E1E1FF;}
 
 .row
   .span5.offset1
-    .list.active.well{:group_id => "-1"}
-      %h3 
-        %span
-          %i.icon-resize-vertical
-          Ungrouped Cards
-      .drag_cont.span4
-      %ul.selectable
-        - @cards.each do |card|
-          %li.card{:card_id => card.id}
-            %i.icon-move
-            = "#{card.front} | #{card.back}"
 
-  .span5
-    - @groups.each do |i, cards|
-      - group = Group.find i
-      .list.active.well{:group_id => i}
-        %h3
-          %span
-            %i.icon-resize-vertical
-            = best_in_place group, :name, :activator => ".list[group_id=#{i}] .rename", :nil => "Untitled"
-          .btn-toolbar
-            .btn-group
-              %a.btn.btn-small.rename Rename
-              = link_to t('.edit', :default => t("helpers.links.edit")),
-                edit_group_path(i), :class => 'btn btn-small'                
-              = link_to t('.destroy', :default => t("helpers.links.destroy")),                                 
-                group_path(i),                                                                            
-                :method => 'delete',                                                                           
-                :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-                :class => 'btn btn-small btn-danger'
-
-        .drag_cont.span4
-        %ul.selectable
-          - cards.each do |card|
-            %li.card{:card_id => card.id}
-              %i.icon-move
-              = "#{card.front} | #{card.back}"
-
-    .list.active.well.new
+  .span6.list{:group_id => "-1"}
+    %h3 
+      %span
+        / %i.icon-arrow-left
+        Ungrouped Cards
+      %span.count
+    .drag_cont.span4
+    %ul.selectable
+      - @cards.each do |card|
+        %li.card{:card_id => card.id}
+          %i.icon-move
+          = "#{card.front} | #{card.back}"
+  - k = 0
+  - @groups.each do |i, cards|
+    - k += 1
+    - group = Group.find i
+    .span6.list{:group_id => i, :class => ("active" if k == 1)}
       %h3
         %span
-          %i.icon-resize-vertical
+          = best_in_place group, :name, :activator => ".list[group_id=#{i}] .rename", :nil => "Untitled"
+        .btn-toolbar
+          .btn-group
+            %a.btn.btn-small.rename Rename               
+            %a.btn.btn-small{'data-confirm' => "Are you sure?", 'data-method'=>"delete", 'rel'=>"nofollow"}
+              %i.icon-remove
+        %span.count= "(#{group.cards.count})"
+        .formats
+          .bip_wrapper
+            %i.icon-edit
+            = best_in_place group, :question_format, nil: 'question_format'
+          .bip_wrapper
+            %i.icon-edit
+            = best_in_place group, :answer_format, nil: 'answer_format'
+
+      %ul.selectable
+        - cards.each do |card|
+          %li.card{:card_id => card.id}
+            .text
+              %i.icon-move
+              = "#{card.front} | #{card.back}"
+            .preview
+              %span.question= card.question_formatted
+              | 
+              %span.answer= card.answer_formatted
+      .drag_cont.span4
+
+  .span6.list.new
+    %h3
+      %span
+        %span New Group
+      %span.count
+      .btn-toolbar
+      /   .btn-group
+      /     %a.btn.btn-small.rename Rename               
+      /     %a.btn.btn-small{'data-confirm' => "Are you sure?", 'data-method'=>"delete", 'rel'=>"nofollow"}
+      /       %i.icon-remove
+      .formats
+        .bip_wrapper
+          %i.icon-edit
+          %span.best_in_place.question_format{'data-object'=> 'group', 'data-attribute'=> 'question_format', 'data-nil'=> 'question_format', 'data-type'=> 'input'}
+          / = best_in_place group, =>question_format, nil=> 'question_format'
+        .bip_wrapper
+          %i.icon-edit
+          %span.best_in_place.answer_format{'data-object'=> 'group', 'data-attribute'=> 'answer_format', 'data-nil'=> 'answer_format', 'data-type'=> 'input'}
+          / = best_in_place group, :answer_format, nil: 'answer_format'
+
+    .drag_cont.span4
+    %ul.selectable
+
+  .btn-wrapper.span6.list= link_to "Last step: Audit", "/handles/#{@handle.id}/audit", :class => 'btn btn-large btn-primary'
+    
+  #sample_list{:style => 'display:none;'}
+    .span6.list
+      %h3
+        %span
           %span New Group
 
       .drag_cont.span4
       %ul.selectable
-      
-    #sample_list{:style => 'display:none;'}
-      .list.active.well
-        %h3
-          %span
-            %i.icon-resize-vertical
-            %span New Group
 
-        .drag_cont.span4
-        %ul.selectable
-
-    #sample_toolbar{:style => 'display:none;'}
-      .btn-toolbar
-        .btn-group
-          %a.btn.btn-small.rename Rename
-          = link_to t('.edit', :default => t("helpers.links.edit")),
-            '#', :class => 'edit btn btn-small'                
-          = link_to t('.destroy', :default => t("helpers.links.destroy")),                                 
-            "#",                                                                            
-            :method => 'delete',                                                                           
-            :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-                :class => 'btn btn-small btn-danger destroy'
-
-/ .row
-/   .span6.ungrouped_cards_cont
-/     .well.ungrouped_cards
-/       %h3 Ungrouped Cards:
-/       .cards.selectable
-/         .drag_cont
-/         - @cards.each do |card|
-/           .card.well.small.active{:card_id => card.id}
-/             %i.icon-move
-/             = card.front
-/             |
-/             = card.back
-/             /= link_to 'Show', card
-/             /= link_to 'Edit', edit_card_path(card)
-/             /= link_to 'Destroy', card, confirm: 'Are you sure?', method: :delete
-
-/   .span6.groups
-/     - @groups.each do |i, cards|
-/       - group = Group.find i
-/       .well.group.old{:group_id => i, :style => "height:20px;"}
-/         %h3
-/           %span
-/             %i.icon-resize-vertical
-/             = best_in_place group, :name, :activator => ".group[group_id=#{i}] .rename"
-/             =# group.name
-
-/           .btn-toolbar
-/             .btn-group
-/               %a.btn.btn-small.rename Rename
-/               = link_to t('.edit', :default => t("helpers.links.edit")),
-/                 edit_group_path(i), :class => 'btn btn-small'                
-/               = link_to t('.destroy', :default => t("helpers.links.destroy")),                                 
-/                 group_path(i),                                                                            
-/                 :method => 'delete',                                                                           
-/                 :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-/                 :class => 'btn btn-small btn-danger'
-
-/         .cards{:style => "display:none;"}
-/           .drag_cont
-/           - cards.each do |card|
-/             .card.well.small{:card_id => card.id}
-/               %i.icon-move
-/               = card.front
-/               |
-/               = card.back
-/               /= link_to 'Show', card
-/               /= link_to 'Edit', edit_card_path(card)
-/               /= link_to 'Destroy', card, confirm: 'Are you sure?', method: :delete
-
+  #sample_toolbar{:style => 'display:none;'}
+    .btn-toolbar
+      .btn-group
+        %a.btn.btn-small.rename Rename               
+        %a.btn.btn-small{'data-confirm' => "Are you sure?", 'data-method'=>"delete", 'rel'=>"nofollow"}
+          %i.icon-remove
 %br
 %br

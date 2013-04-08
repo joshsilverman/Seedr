@@ -1,0 +1,25 @@
+.title-container
+  %h1 New Handle
+
+- steps = ['Details', 'Group & Format', 'Audit']
+.progress-container
+  %ol.wizard-progress.clearfix
+    - steps.each_with_index do |step, i|
+      %li{:class => ("active-step" if active >= i)}
+        %span.step-name= step
+        %span.visuallyhidden Step
+        %span.step-num= i + 1
+
+    / %li
+    /   %span.step-name Group & Format
+    /   %span.visuallyhidden Step
+    /   %span.step-num 2
+    / %li
+    /   %span.step-name Audit
+    /   %span.visuallyhidden Step
+    /   %span.step-num 3
+
+    / %li
+    /   %span.step-name Quux
+    /   %span.visuallyhidden Step
+    /   %span.step-num 4

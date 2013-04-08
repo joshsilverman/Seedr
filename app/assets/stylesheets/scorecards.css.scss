@@ -14,7 +14,7 @@
       border-top-width: 1px;
       border-bottom-style: solid;
       border-bottom-width: 1px;
-      background: white;
+      background: #eee;
       border-right-style: solid;
       border-right-width: 1px;
       border-left-style: solid;
@@ -153,12 +153,14 @@
   }
 
   .stat {
-    background-color:#888;
+    background-color:#ccc;
     margin-top:-20px;
     border-radius:0 0 5px 5px;
     padding:8px 5px 8px 14px;
+    position: relative;
+    right:-250px;
 
-    ///color:111;
+    /*color:111;*/
     font-size:20px;
 
     .grade {
@@ -175,7 +177,7 @@
   .scorecard {
     position:absolute;
     width:530px;
-    top:400px;
+    top:630px;
     padding: 19px 19px 10px 19px;
 
     label {

@@ -44,6 +44,17 @@ class GroupsController < ApplicationController
     end
   end
 
+  def preview
+    @group = Group.find params[:id]
+    @questions = {}
+    @group.cards.each do |c| 
+      @questions[c.id] = {
+        question: c.question_formatted(params[:question_format]), 
+        answer: c.answer_formatted(params[:answer_format])}
+    end
+    render json: @questions
+  end
+
   # PUT /groups/1
   # PUT /groups/1.json
   def update

@@ -18,6 +18,7 @@ Quizlet::Application.routes.draw do
   resources :decks
 
   resources :groups
+  post "groups/:id/preview" => "groups#preview"
 
   match "cards/:id/group/:group_id" => "cards#group"
   match "cards/:id/ungroup" => "cards#ungroup"

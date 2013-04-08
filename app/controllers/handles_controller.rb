@@ -85,17 +85,38 @@ class HandlesController < ApplicationController
   # POST /handles
   # POST /handles.json
   def create
-    @handle = Handle.new(params[:handle])
 
-    respond_to do |format|
-      if @handle.save
-        format.html { redirect_to edit_handle_path(@handle), notice: 'Handle was successfully created.' }
-        format.json { render json: @handle, status: :created, location: @handle }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @handle.errors, status: :unprocessable_entity }
-      end
+    @deck = Deck.find_or_create_by_quizlet_id params[:handle][:decks][:quizlet_id]
+    params[:handle].delete :decks
+    @handle = Handle.create(params[:handle])
+    @deck.handle_id = @handle.id
+
+    require "net/https"
+    require "uri"
+    uri = URI.parse("https://api.quizlet.com/2.0/sets/#{@deck.quizlet_id}?client_id=ABPPhBBUAN&whitespace=1")
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Get.new(uri.request_uri)
+    response = http.request(request)
+    @qdeck = JSON.parse response.body
+
+    @deck.save
+
+    @group = Group.find_or_create_by_deck_id_and_default @deck.id, true
+    @group.update_attributes :name => "Default"
+
+    @deck.title = @qdeck['title']
+    @qdeck['terms'].each do |t|
+      card = Card.find_or_create_by_quizlet_id t['id']
+      card.front = t['term']
+      card.back = t['definition']
+      @deck.cards << card
+      @group.cards << card
+      card.save
     end
+
+    redirect_to "/decks/#{@deck.id}/sort"
   end
 
   # PUT /handles/1
