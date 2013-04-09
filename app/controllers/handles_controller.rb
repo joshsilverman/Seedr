@@ -54,7 +54,7 @@ class HandlesController < ApplicationController
     cards.each do |card|
       group = card.groups.first
       question = {}
-      next if group.nil? or group.question_format.nil? or group.answer_format.nil? or card.publish == false
+      next if group.nil? or group.question_format.empty? or group.answer_format.empty? or card.publish == false
       question[:card_id] = card.id
       question_parts = group.question_format.split /\#{|}/
       # front = (question_parts[1] == "front") ? true : false
@@ -73,6 +73,8 @@ class HandlesController < ApplicationController
         question[:false_answers] << other_card.answer_formatted
         break if i == 3
       end
+
+
       questions << question
     end
 
