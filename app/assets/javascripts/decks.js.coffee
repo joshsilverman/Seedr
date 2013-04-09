@@ -72,7 +72,6 @@ class Decks
                 question_format = h3.find(".question_format")
                 answer_format = h3.find(".answer_format")
                 btn_toolbar = $('#sample_toolbar .btn-toolbar').clone()
-                # rename = btn_toolbar.find('.rename')
 
                 name_span.attr
                   'id': "best_in_place_group_" + group_id + "_name"
@@ -99,13 +98,19 @@ class Decks
 
                 group.find('.btn-toolbar').replaceWith btn_toolbar
                 name_span.best_in_place()
+                group.removeClass "new"
+                group.addClass "recently-activated"
+                group.find('.rename').click (e) -> e.stopPropagation()
 
                 new_group = $('#sample_list .list').clone()
                 group.after new_group
-                # @after_drop()
-                # c "test"
 
-          ).complete => decks.after_drop(group)
+          ).complete => 
+            decks.after_drop(group)
+
+            group = $('.recently-activated')
+            group.find('.rename').trigger 'click' 
+            group.removeClass 'recently-activated'
 
   after_drop: (group) =>
     $('.list').each (i, l) -> 

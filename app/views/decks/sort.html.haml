@@ -23,13 +23,14 @@
     - group = Group.find i
     .span6.list{:group_id => i, :class => ("active" if k == 1)}
       %h3
-        %span
+        %span.title
           = best_in_place group, :name, :activator => ".list[group_id=#{i}] .rename", :nil => "Untitled"
         .btn-toolbar
           .btn-group
             %a.btn.btn-small.rename Rename               
             %a.btn.btn-small{'data-confirm' => "Are you sure?", 'data-method'=>"delete", 'rel'=>"nofollow"}
               %i.icon-remove
+
         %span.count= "(#{group.cards.count})"
         .formats
           .bip_wrapper
@@ -53,35 +54,37 @@
 
   .span6.list.new
     %h3
-      %span
+      %span.title
         %span New Group
       %span.count
       .btn-toolbar
-      /   .btn-group
-      /     %a.btn.btn-small.rename Rename               
-      /     %a.btn.btn-small{'data-confirm' => "Are you sure?", 'data-method'=>"delete", 'rel'=>"nofollow"}
-      /       %i.icon-remove
       .formats
         .bip_wrapper
           %i.icon-edit
           %span.best_in_place.question_format{'data-object'=> 'group', 'data-attribute'=> 'question_format', 'data-nil'=> 'question_format', 'data-type'=> 'input'}
-          / = best_in_place group, =>question_format, nil=> 'question_format'
         .bip_wrapper
           %i.icon-edit
           %span.best_in_place.answer_format{'data-object'=> 'group', 'data-attribute'=> 'answer_format', 'data-nil'=> 'answer_format', 'data-type'=> 'input'}
-          / = best_in_place group, :answer_format, nil: 'answer_format'
 
     .drag_cont.span4
     %ul.selectable
 
   .btn-wrapper.span6.list= link_to "Last step: Audit", "/handles/#{@handle.id}/audit", :class => 'btn btn-large btn-primary'
-    
+
   #sample_list{:style => 'display:none;'}
-    .span6.list
+    .span6.list.new
       %h3
         %span
           %span New Group
-
+        %span.count
+        .btn-toolbar
+        .formats
+          .bip_wrapper
+            %i.icon-edit
+            %span.best_in_place.question_format{'data-object'=> 'group', 'data-attribute'=> 'question_format', 'data-nil'=> 'question_format', 'data-type'=> 'input'}
+          .bip_wrapper
+            %i.icon-edit
+            %span.best_in_place.answer_format{'data-object'=> 'group', 'data-attribute'=> 'answer_format', 'data-nil'=> 'answer_format', 'data-type'=> 'input'}
       .drag_cont.span4
       %ul.selectable
 

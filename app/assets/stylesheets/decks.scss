@@ -47,6 +47,12 @@
 		}
 	}
 
+	&.new {
+		.formats {
+			display: none;
+		}
+	}
+
 	background: white;
 
 	ul {
@@ -149,14 +155,7 @@
 .drag_cont {
 	height: inherit;
 	background: none;
-
-	/*.preview {
-		display: none;
-	}*/
 }
-
-.list h3 i:hover { cursor:w-resize; }
-.list.active h3 i:hover { cursor:n-resize; }
 
 .list h3 .best_in_place input {
 	width:95%;
