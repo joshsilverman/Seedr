@@ -36,6 +36,9 @@ class ScorecardsController < ApplicationController
       i = 0
       group.cards.shuffle.each do |other_card|
         next if other_card.id == card.id
+        next if other_card.answer_formatted == card.answer_formatted
+        next if question[:incorrect].include? other_card.answer_formatted
+
         i += 1
         question[:incorrect] << other_card.answer_formatted
         break if i == 3

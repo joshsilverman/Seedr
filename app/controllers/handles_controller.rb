@@ -65,11 +65,9 @@ class HandlesController < ApplicationController
       i = 0
       group.cards.shuffle.each do |other_card|
         next if other_card.id == card.id
-        if group.answer_format.include? "back"
-          next if other_card.back == card.back
-        else
-          next if other_card.front == card.front        
-        end
+        next if other_card.answer_formatted == card.answer_formatted
+        next if question[:incorrect].include? other_card.answer_formatted
+        
         i += 1
         question[:false_answers] << other_card.answer_formatted
         break if i == 3
