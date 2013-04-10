@@ -5,7 +5,7 @@ class Card < ActiveRecord::Base
 
   def question_formatted format = nil
     return unless groups
-    format ||= groups.first.question_format
+    format ||= groups.first.question_format.gsub('&quot;', "\"")
     begin 
       eval "\"#{format}\""
     rescue Exception => exc
@@ -15,7 +15,7 @@ class Card < ActiveRecord::Base
 
   def answer_formatted format = nil
     return unless groups
-    format ||= groups.first.answer_format
+    format ||= groups.first.answer_format.gsub('&quot;', "\"")
     begin
       eval "\"#{format}\""
     rescue Exception => exc
