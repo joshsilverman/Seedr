@@ -121,6 +121,10 @@ class Decks
 
       l.replaceWith(lc)
 
+      count = lc.find('li.card').length
+      count_cont = lc.find('span.count')
+      count_cont.html "(#{count})"
+
     @init_sort()
 
   init_sort: ->

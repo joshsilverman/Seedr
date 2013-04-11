@@ -7,10 +7,17 @@
         = f.label :name, :class => 'control-label'
         .controls
           = f.text_field :name, :class => 'text_field'
+      .control-group
+        = f.label :topic, :class => 'control-label'
+        .controls
+          = f.text_field :topic, :class => 'text_field'
+          %p
+            %i
+              %small This will autopopulate the description
 
       = f.fields_for :decks do |ff|
         .control-group
-          = ff.label :quizlet_id, :class => 'control-label'
+          = ff.label "Quizlet Id", :class => 'control-label'
           .controls
             = ff.text_field :quizlet_id, :class => 'quizlet_id'
 

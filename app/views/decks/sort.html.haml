@@ -35,10 +35,10 @@
         .formats
           .bip_wrapper
             %i.icon-edit
-            = best_in_place group, :question_format, nil: 'question_format'
+            = best_in_place group, :question_format, nil: '#{front}'
           .bip_wrapper
             %i.icon-edit
-            = best_in_place group, :answer_format, nil: 'answer_format'
+            = best_in_place group, :answer_format, nil: '#{back}'
 
       %ul.selectable
         - cards.each do |card|

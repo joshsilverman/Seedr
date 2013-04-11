@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121016205035) do
+ActiveRecord::Schema.define(:version => 20130411202534) do
 
   create_table "cards", :force => true do |t|
     t.text     "front"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20121016205035) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "published"
+    t.string   "topic"
   end
 
   create_table "scorecards", :force => true do |t|
