@@ -27,9 +27,6 @@ class Decks
       list.addClass "drag-in-progress"
       cards = list.find('ul')
 
-      # sort.offset = $(window).scrollTop(150)
-      # $(window).scrollTop(0)
-
     drag_cont
 
   draggable_stop: =>
@@ -145,15 +142,26 @@ class Decks
 
     $('.best_in_place').each (i, elmnt) -> $(elmnt).best_in_place()
     $('.btn-toolbar, .formats').click (e) -> e.stopPropagation()
+
     $('.formats .best_in_place').keyup (e) -> decks.previewQuestions(e)
-    $('.best_in_place').bind("ajax:success", => $('.preview').hide());
+    $('.best_in_place').bind "ajax:success", (r) -> 
+      $('.preview').hide()
+      list = $(this).closest('.list')
+      h3 = list.find 'h3'
+      formats = list.find('.formats .best_in_place')
+      question_format = $(formats[0]).html()
+      answer_format = $(formats[1]).html()
+      c question_format
+      c answer_format
+      if question_format != "question format" and answer_format != "answer format" and question_format != "" and answer_format != ""
+        h3.addClass "formatted"
+      else 
+        h3.removeClass "formatted"
 
     $(".list h3").click ->
       list = $(this).closest('.list')
       cards = list.find('ul')
       if list.hasClass "active"
-        # cards.slideUp "slow", ->
-        #   list.animate height: 40
       else
         deactivated = $('.list.active')
         deactivated.removeClass "active"
@@ -165,15 +173,6 @@ class Decks
         cards.slideDown "slow"
 
         list.toggleClass "active"
-
-    # lists = $(".list")
-    # lists_wrapper = $(".list").closest '.row'
-    # lists.get().sort (a, b) ->
-    #   c $($(a).find('h3 span')[0]).text()
-    #   c $($(b).find('h3 span')[0]).text()
-    #   $($(a).find('h3 span')[0]).text().localeCompare($($(b).find('h3 span')[0]).text())
-    # c lists
-    # $.each(lists, (idx, itm) -> lists_wrapper.append(itm))
 
   previewQuestions: (e) ->
     input = $(e.target)
@@ -194,8 +193,6 @@ class Decks
         answer_format: answer_format
       , (r, status) ->
         $.each r, (k,v) ->
-          # c status
-          # v = {question:'error', answer:''} unless status == '200'
 
           card = $("li[card_id=#{k}]")
           question_wrapper = card.find(".question")

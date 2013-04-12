@@ -36,6 +36,7 @@
 		height:inherit;
 		.btn-toolbar {
 			display:inline;
+			margin: 0 5px;
 		}		
 
 		h3 {
@@ -107,12 +108,27 @@
 			/*margin-right:-15px;*/
 		}
 
+		&.formatted {
+			i.icon-ok {
+				display: inherit;
+			}
+		}
+
+		i.icon-ok {
+			float: right;
+			font-size: 13px;
+			color: #999;
+			margin-right: 5px;
+			margin-left: 5px;
+			display: none;
+		}
+
 		span.count {
 			font-weight: normal;
 			font-size: 13px;
 			float: right;
-			margin-right: 8px;
-			margin-left: 8px;
+			margin-right: 5px;
+			margin-left: 5px;
 			color: #999;
 			font-style: italic;
 		}

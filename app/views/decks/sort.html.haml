@@ -22,7 +22,8 @@
     - k += 1
     - group = Group.find i
     .span6.list{:group_id => i, :class => ("active" if k == 1)}
-      %h3
+      - formatted = (group.question_format != "question format" and group.answer_format != "answer format" and group.question_format != "" and group.answer_format != "" and group.question_format != nil and group.answer_format != nil) ? "formatted" : ""
+      %h3{:class => formatted}
         %span.title
           = best_in_place group, :name, :activator => ".list[group_id=#{i}] .rename", :nil => "Untitled"
         .btn-toolbar
@@ -32,13 +33,14 @@
               %i.icon-remove
 
         %span.count= "(#{group.cards.count})"
+        %i.icon-ok
         .formats
           .bip_wrapper
             %i.icon-edit
-            = best_in_place group, :question_format, nil: '#{front}'
+            = best_in_place group, :question_format, nil: 'question format'
           .bip_wrapper
             %i.icon-edit
-            = best_in_place group, :answer_format, nil: '#{back}'
+            = best_in_place group, :answer_format, nil: 'answer format'
 
       %ul.selectable
         - cards.each do |card|
