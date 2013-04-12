@@ -81,8 +81,10 @@ class HandlesController < ApplicationController
       questions << question
     end
 
+    handle = {topic: @handle.topic, questions: questions}
+
     respond_to do |format|
-      format.json { render json: questions }
+      format.json { render json: handle }
     end
   end
 
