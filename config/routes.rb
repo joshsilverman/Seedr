@@ -4,6 +4,7 @@ Quizlet::Application.routes.draw do
 
   match "cards/audit" => "scorecards#audit"
   match "handles/:handle_id/audit" => "scorecards#audit"
+  get "handles/:handle_id/reaudit" => "scorecards#reaudit"
   match "groups/:group_id/audit" => "scorecards#audit"
   match "decks/:deck_id/audit" => "scorecards#audit"
   resources :scorecards

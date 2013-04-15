@@ -4,13 +4,14 @@
 .audit
 
   .row
-    .span2.offset7
+    .span3.offset7
       .well.stat
         .grade= "#{sprintf("%.f", @grade[:percentage] * 100) if @grade[:percentage]}%"
         .ci_wrapper
           (+/- 
           %span.ci= sprintf("%.f", @grade[:ci] * 100) if @grade[:ci]
           )
+        .reset= link_to "reset", "/handles/#{@handle.id}/reaudit"
 
   = render "handles/progress", active: 2
 

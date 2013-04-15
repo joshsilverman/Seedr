@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130411202534) do
+ActiveRecord::Schema.define(:version => 20130415191532) do
 
   create_table "cards", :force => true do |t|
     t.text     "front"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20130411202534) do
     t.integer  "user_id"
     t.integer  "card_id"
     t.integer  "handle_id"
+    t.boolean  "silenced"
   end
 
   create_table "users", :force => true do |t|
