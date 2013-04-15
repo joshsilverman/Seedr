@@ -165,6 +165,8 @@ class Decks
       else
         deactivated = $('.list.active')
         deactivated.removeClass "active"
+        deactivated.removeClass "span9"
+        deactivated.addClass "span3"
 
         deactivated.find('h3').effect "highlight"
         list.find('h3').effect "highlight"
@@ -172,7 +174,9 @@ class Decks
         list.css {height: ''}#, ->
         cards.slideDown "slow"
 
-        list.toggleClass "active"
+        list.addClass "active"
+        list.addClass "span9"
+        list.removeClass "span3"
 
   previewQuestions: (e) ->
     input = $(e.target)

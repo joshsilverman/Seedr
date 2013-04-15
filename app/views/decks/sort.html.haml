@@ -5,13 +5,13 @@
 .row
   .span5.offset1
 
-  .span6.list{:group_id => "-1"}
+  .span3.list{:group_id => "-1"}
     %h3 
       %span
         / %i.icon-arrow-left
         Ungrouped Cards
       %span.count
-    .drag_cont.span4
+    .drag_cont.span3
     %ul.selectable
       - @cards.each do |card|
         %li.card{:card_id => card.id}
@@ -21,7 +21,7 @@
   - @groups.each do |i, cards|
     - k += 1
     - group = Group.find i
-    .span6.list{:group_id => i, :class => ("active" if k == 1)}
+    .list{:group_id => i, :class => (k == 1 ? "active span9" : "span3")}
       - formatted = (group.question_format != "question format" and group.answer_format != "answer format" and group.question_format != "" and group.answer_format != "" and group.question_format != nil and group.answer_format != nil) ? "formatted" : ""
       %h3{:class => formatted}
         %span.title
@@ -52,9 +52,9 @@
               %span.question= card.question_formatted
               | 
               %span.answer= card.answer_formatted
-      .drag_cont.span4
+      .drag_cont.span3
 
-  .span6.list.new
+  .span3.list.new
     %h3
       %span.title
         %span New Group
@@ -68,13 +68,13 @@
           %i.icon-edit
           %span.best_in_place.answer_format{'data-object'=> 'group', 'data-attribute'=> 'answer_format', 'data-nil'=> 'answer_format', 'data-type'=> 'input'}
 
-    .drag_cont.span4
+    .drag_cont.span3
     %ul.selectable
 
-  .btn-wrapper.span6.list= link_to "Last step: Audit", "/handles/#{@handle.id}/audit", :class => 'btn btn-large btn-primary'
+  .btn-wrapper.span3.list= link_to "Last step: Audit", "/handles/#{@handle.id}/audit", :class => 'btn btn-large btn-primary'
 
   #sample_list{:style => 'display:none;'}
-    .span6.list.new
+    .span3.list.new
       %h3
         %span
           %span New Group
@@ -87,7 +87,7 @@
           .bip_wrapper
             %i.icon-edit
             %span.best_in_place.answer_format{'data-object'=> 'group', 'data-attribute'=> 'answer_format', 'data-nil'=> 'answer_format', 'data-type'=> 'input'}
-      .drag_cont.span4
+      .drag_cont.span3
       %ul.selectable
 
   #sample_toolbar{:style => 'display:none;'}
