@@ -69,17 +69,40 @@
 		width:100%;
 		/*height: 100px;*/
 
-		.text {
+		.text, .preview {
 			height:1.6em;
 			overflow: hidden;
+			.front, .question {
+				width:46%;
+				/*margin-left: 1%;*/
+				float:left;
+			}
+			.back, .answer {
+				width:46%;
+				/*margin-left: 1%;*/
+				float: right;
+				/*display: block;*/
+			}
 		}
 		.preview {
-			padding-left: 20px;
 			color:#888;
-			/*display: none;*/
+			.question {
+				margin-left: 16px;
+			}
+			.answer {
+				position: relative;
+				/*left: 16px;*/
+			}
 		}
 
-		i { cursor:move; }
+		i.icon-move { 
+			cursor:move;
+			float:left;
+		}
+		i.icon-edit { 
+			cursor:pointer;
+			float:left;
+		}
 
 		border-top:1px solid lightgrey;
 	}

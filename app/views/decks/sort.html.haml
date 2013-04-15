@@ -47,10 +47,14 @@
           %li.card{:card_id => card.id}
             .text
               %i.icon-move
-              = "#{card.front} | #{card.back}"
+              %span.front
+                %i.icon-edit
+                = best_in_place card, :front, :activator => ".card[card_id=#{card.id}] .front i"
+              %span.back
+                %i.icon-edit
+                = best_in_place card, :back, :activator => ".card[card_id=#{card.id}] .back i"
             .preview
               %span.question= card.question_formatted
-              | 
               %span.answer= card.answer_formatted
       .drag_cont.span3
 
